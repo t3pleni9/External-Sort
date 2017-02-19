@@ -6,7 +6,7 @@ class KWayMergeSort(object):
     self.unsorted = unsorted
     self.invert = invert
 
-  def sort(self, *lists, **kwargs):
+  def isort(self, *lists, **kwargs):
     invert, unsorted = self.get_named_params(kwargs)
 
     sort_function = max if invert is True else min
