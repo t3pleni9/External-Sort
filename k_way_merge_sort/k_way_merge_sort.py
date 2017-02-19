@@ -2,6 +2,9 @@ import heapq
 
 
 class KWayMergeSort(object):
+  def __init__(self, invert=False, unsorted=False):
+    self.unsorted = unsorted
+    self.invert = invert
 
   def sort(self, *lists, **kwargs):
     invert, unsorted = self.get_named_params(kwargs)
@@ -28,9 +31,8 @@ class KWayMergeSort(object):
       except (IndexError, ValueError):
         return
 
-  @staticmethod
-  def get_named_params(kwargs):
+  def get_named_params(self, kwargs):
     named_params = {item: value for item, value in kwargs.items()}
-    invert = named_params.get('invert', False)
-    unsorted = named_params.get('unsorted', False)
+    invert = named_params.get('invert', self.invert)
+    unsorted = named_params.get('unsorted', self.unsorted)
     return invert, unsorted
