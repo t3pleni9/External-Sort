@@ -33,6 +33,86 @@ class KWayMergeSortTest(unittest.TestCase):
     sorted_list = [i for i in self.k_way_merge.imerge([2, 3, 1], [5, 6, 2], [4, 8, 0])]
     self.assertEqual(sorted_list, [8, 6, 5, 4, 3, 2, 2, 1, 0])
 
+  def test_should_merge_sort_based_on_key(self):
+    rows1 = [
+      {'name': 'A', 'value': 4},
+      {'name': 'B', 'value': 6},
+      {'name': 'C', 'value': 8},
+      {'name': 'D', 'value': 10}
+    ]
+
+    rows2 = [
+      {'name': 'E', 'value': 2},
+      {'name': 'F', 'value': 4},
+      {'name': 'G', 'value': 8},
+      {'name': 'H', 'value': 16}
+    ]
+
+    rows3 = [
+      {'name': 'I', 'value': 3},
+      {'name': 'J', 'value': 6},
+      {'name': 'K', 'value': 9},
+      {'name': 'L', 'value': 12}
+    ]
+
+    expected_merged_collection = [
+      {'name': 'E', 'value': 2},
+      {'name': 'I', 'value': 3},
+      {'name': 'A', 'value': 4},
+      {'name': 'F', 'value': 4},
+      {'name': 'B', 'value': 6},
+      {'name': 'J', 'value': 6},
+      {'name': 'C', 'value': 8},
+      {'name': 'G', 'value': 8},
+      {'name': 'K', 'value': 9},
+      {'name': 'D', 'value': 10},
+      {'name': 'L', 'value': 12},
+      {'name': 'H', 'value': 16}
+    ]
+    sorted_list = [i for i in self.k_way_merge.imerge(rows1, rows2, rows3, key='value')]
+
+    self.assertEqual(sorted_list, expected_merged_collection)
+
+  def test_should_reverse_merge_sort_based_on_key(self):
+    rows1 = [
+      {'name': 'D', 'value': 10},
+      {'name': 'C', 'value': 8},
+      {'name': 'B', 'value': 6},
+      {'name': 'A', 'value': 4}
+    ]
+
+    rows2 = [
+      {'name': 'H', 'value': 16},
+      {'name': 'G', 'value': 8},
+      {'name': 'F', 'value': 4},
+      {'name': 'E', 'value': 2}
+    ]
+
+    rows3 = [
+      {'name': 'L', 'value': 12},
+      {'name': 'K', 'value': 9},
+      {'name': 'J', 'value': 6},
+      {'name': 'I', 'value': 3}
+    ]
+
+    expected_merged_collection = [
+      {'name': 'H', 'value': 16},
+      {'name': 'L', 'value': 12},
+      {'name': 'D', 'value': 10},
+      {'name': 'K', 'value': 9},
+      {'name': 'C', 'value': 8},
+      {'name': 'G', 'value': 8},
+      {'name': 'B', 'value': 6},
+      {'name': 'J', 'value': 6},
+      {'name': 'A', 'value': 4},
+      {'name': 'F', 'value': 4},
+      {'name': 'I', 'value': 3},
+      {'name': 'E', 'value': 2}
+    ]
+    sorted_list = [i for i in self.k_way_merge.imerge(rows1, rows2, rows3, key='value', invert=True)]
+
+    self.assertEqual(sorted_list, expected_merged_collection)
+
 
 if __name__ == '__main__':
   unittest.main()

@@ -1,20 +1,29 @@
 import heapq
 
 
+def _get_sort_function(invert, key):
+  sort_function = max if invert else min
+
+  if key is None:
+    return sort_function
+
+  return lambda x: sort_function(x, key=lambda entry: entry[0][key])
+
+
 class KWayMergeSort(object):
   def __init__(self, invert=False, unsorted=False):
     self.unsorted = unsorted
     self.invert = invert
 
   def imerge(self, *lists, **kwargs):
-    invert, unsorted = self.get_named_params(kwargs)
+    invert, unsorted, key = self.get_named_params(kwargs)
 
-    sort_function = max if invert is True else min
+    sort_function = _get_sort_function(invert, key)
     iter_func = (lambda x: iter(
         heapq.nlargest(len(x), x)
-      ) if invert is True else iter(
+      ) if invert else iter(
         heapq.nsmallest(len(x), x)
-      )) if unsorted is True else iter
+      )) if unsorted else iter
 
     heaps = [[iterator.next(), iterator.next] for iterator in map(iter_func, lists)]
 
@@ -35,4 +44,6 @@ class KWayMergeSort(object):
     named_params = {item: value for item, value in kwargs.items()}
     invert = named_params.get('invert', self.invert)
     unsorted = named_params.get('unsorted', self.unsorted)
-    return invert, unsorted
+    key = named_params.get('key', None)
+
+    return invert, unsorted, key
