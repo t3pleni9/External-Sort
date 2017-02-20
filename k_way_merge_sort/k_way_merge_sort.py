@@ -47,4 +47,11 @@ class KWayMergeSort(object):
     unsorted = named_params.get('unsorted', self.unsorted)
     key = named_params.get('key', None)
 
+    if unsorted and (key is not None):
+      raise UnsortedHashException('Unsorted dictionaries not allowed')
+
     return invert, unsorted, key
+
+
+class UnsortedHashException(Exception):
+  pass

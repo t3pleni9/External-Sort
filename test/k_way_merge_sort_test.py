@@ -1,6 +1,7 @@
 import unittest
 
 from k_way_merge_sort import KWayMergeSort
+from k_way_merge_sort import UnsortedHashException
 
 
 class KWayMergeSortTest(unittest.TestCase):
@@ -112,6 +113,14 @@ class KWayMergeSortTest(unittest.TestCase):
     sorted_list = [i for i in self.k_way_merge.imerge(rows1, rows2, rows3, key='value', invert=True)]
 
     self.assertEqual(sorted_list, expected_merged_collection)
+
+  def test_should_throw_exception_if_unsorted_is_used_with_key(self):
+    """Need to call next() inorder invoke an execution"""
+
+    with self.assertRaises(UnsortedHashException) as context:
+      self.k_way_merge.imerge([{}], [{}], [{}], key='value', unsorted=True).next()
+
+    self.assertTrue('Unsorted dictionaries not allowed' in context.exception)
 
 
 if __name__ == '__main__':
