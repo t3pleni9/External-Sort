@@ -115,7 +115,7 @@ class KWayMergeSortTest(unittest.TestCase):
     self.assertEqual(sorted_list, expected_merged_collection)
 
   def test_should_throw_exception_if_unsorted_is_used_with_key(self):
-    """Need to call next() inorder invoke an execution"""
+    """Need to call next() inorder to invoke an execution"""
 
     with self.assertRaises(UnsortedHashException) as context:
       self.k_way_merge.imerge([{}], [{}], [{}], key='value', unsorted=True).next()
