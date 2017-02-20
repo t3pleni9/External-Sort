@@ -25,23 +25,24 @@ class KWayMergeSort(object):
         heapq.nsmallest(len(x), x)
       )) if unsorted else iter
 
-    heaps = [[iterator.next(), iterator.next] for iterator in map(iter_func, lists)]
+    heads = [[iterator.next(), iterator.next] for iterator in map(iter_func, lists)]
 
     while True:
       top = []
       try:
         while True:
-          value, next_iter = top = sort_function(heaps)
+          value, next_iter = top = sort_function(heads)
           yield value
           top[0] = next_iter()
       except StopIteration:
-        top_index = heaps.index(top)
-        heaps.pop(top_index)
+        top_index = heads.index(top)
+        heads.pop(top_index)
       except (IndexError, ValueError):
         return
 
   def get_named_params(self, kwargs):
     named_params = {item: value for item, value in kwargs.items()}
+
     invert = named_params.get('invert', self.invert)
     unsorted = named_params.get('unsorted', self.unsorted)
     key = named_params.get('key', None)
