@@ -15,7 +15,7 @@ class KWayMergeSort(object):
     self.unsorted = unsorted
     self.invert = invert
 
-  def imerge(self, *lists, **kwargs):
+  def merge(self, collections, **kwargs):
     invert, unsorted, key = self.get_named_params(kwargs)
 
     sort_function = _get_sort_function(invert, key)
@@ -25,7 +25,7 @@ class KWayMergeSort(object):
         heapq.nsmallest(len(x), x)
       )) if unsorted else iter
 
-    heads = [[iterator.next(), iterator.next] for iterator in map(iter_func, lists)]
+    heads = [[iterator.next(), iterator.next] for iterator in map(iter_func, collections)]
 
     while True:
       top = []
