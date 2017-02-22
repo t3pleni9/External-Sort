@@ -1,7 +1,7 @@
 import unittest
 
-from k_way_merge_sort import KWayMergeSort
-from k_way_merge_sort import UnsortedHashException
+from external_sort import KWayMergeSort
+from external_sort import UnsortedHashException
 
 
 class KWayMergeSortTest(unittest.TestCase):
