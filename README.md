@@ -1,5 +1,5 @@
 # External Sort
-Externalize sort of a file using K-way merge sort.
+Externalize sort of a csv file using K-way merge sort.
 
 Merge multiple sorted/unsorted files
 
